@@ -1,56 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Leaderboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Players</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Top Players</h1>
-  <ul id="leaderboard"></ul>
-
-  <script>
-  const formatTime = secs => {
-    const min = Math.floor(secs / 60);
-    const sec = secs % 60;
-    return `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
-  };
-
-  fetch("https://bns84bl623.execute-api.eu-north-1.amazonaws.com/Deploy/resource_butter")
-  .then(res => res.json())
-  .then(data => {
-    const users = Array.isArray(data.body) ? data.body : JSON.parse(data.body);
-
-    // Sort users by time (fastest first)
-    users.sort((a, b) => a.time - b.time);
-
-    const list = document.getElementById("leaderboard");
-
-    users.forEach((user, index) => {
-      const markup = `
-        <li>
-          #${index + 1} - ${user.user_name} - ${formatTime(user.time)} seconds
-        </li>`;
-      list.insertAdjacentHTML("beforeend", markup);
-    });
-  });
-  </script>
-
-  <script>
-    /*
-    fetch('https://bns84bl623.execute-api.eu-north-1.amazonaws.com/Deploy/resource_butter')
-      .then(res => {
-        return res.json();
-        })
-      .then(data=>{
-          const users = data.body;
-          users.forEach(user => {
-            const markup = `<li>${user.user_name}</li>`;
-
-            document.querySelector('ul').insertAdjacentHTML('beforeend',markup);
-            });
-            //console.log(data);
-        })
-      .catch(err => console.log(err));
-      */
-  </script>
+    <main class="table">
+    <section class="table_header">
+        <h1>Player Ranking</h1>
+    </section>
+    <section class="table_body">
+        <table>
+            <thead>
+                <tr>
+                    <th> Ranking </th>
+                    <th> User Name </th>
+                    <th> Time </th>
+                    <th> Date </th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard">
+                
+            </tbody>
+        </table>
+    </section>
+</main>
 </body>
+
+<script>
+    //Formatting the time
+    const formatTime = secs => {
+      const min = Math.floor(secs / 60);
+      const sec = secs % 60;
+      return `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
+    };
+  
+    //fetching the data
+    fetch("https://bns84bl623.execute-api.eu-north-1.amazonaws.com/Deploy/resource_butter")
+    .then(res => res.json())
+    .then(data => {
+      const users = Array.isArray(data.body) ? data.body : JSON.parse(data.body);
+  
+      // Sort users by time (fastest first)
+      users.sort((a, b) => a.time - b.time);
+  
+      const list = document.getElementById("leaderboard");
+  
+      users.forEach((user, index) => {
+        const markup = `
+          <tr>
+            <td> ${index + 1} </td>
+            <td><strong> ${user.user_name} </strong></td>
+            <td> ${formatTime(user.time)} </td>
+            <td> ${user.date} </td>
+          </tr>`;
+        list.insertAdjacentHTML("beforeend", markup);
+      });
+    });
+    </script>
+  
 </html>
