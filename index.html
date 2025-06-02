@@ -3,22 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Players</title>
+    <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <main class="table">
     <section class="table_header">
-        <h1>Player Ranking</h1>
+        <h1>Leader board levels</h1>
     </section>
-    <section class="table_body">
+    <section class="button_table">
         <table>
             <thead>
                 <tr>
-                    <th> Ranking </th>
-                    <th> User Name </th>
-                    <th> Time </th>
-                    <th> Date </th>
+                  <div class="grid_buttons">
+                    <button onclick ="goToLeaderBoard(1)"> Level 1 </button>
+                    <button onclick ="goToLeaderBoard(2)"> Level 2 </button>
+                    <button onclick ="goToLeaderBoard(3)"> Level 3 </button>
+                    <button onclick ="goToLeaderBoard(4)"> Level 4 </button>
+                    <button onclick ="goToLeaderBoard(5)"> Level 5 </button>
+                    <button onclick ="goToLeaderBoard(6)"> Level 6 </button>
+                    <button onclick ="goToLeaderBoard(7)"> Level 7 </button>
+                    <button onclick ="goToLeaderBoard(8)"> Level 8 </button>
+                    <button onclick ="goToLeaderBoard(9)"> Level 9 </button>
+                    <button onclick ="goToLeaderBoard(10)"> Level 10 </button>
+                    <button onclick ="goToLeaderBoard(11)"> Level 11 </button>
+                    <button onclick ="goToLeaderBoard(12)"> Level 12 </button>
+                  </div>
                 </tr>
             </thead>
             <tbody id="leaderboard">
@@ -30,7 +40,10 @@
 </body>
 
 <script>
-    //Formatting the time
+  function goToLeaderBoard(level){
+    window.location.href ="leaderboard.html?level="+level;
+  }
+    /*//Formatting the time
     const formatTime = secs => {
       const min = Math.floor(secs / 60);
       const sec = secs % 60;
@@ -58,7 +71,7 @@
           </tr>`;
         list.insertAdjacentHTML("beforeend", markup);
       });
-    });
+    });*/
     </script>
   
 </html>
