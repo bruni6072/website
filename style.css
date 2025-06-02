@@ -32,8 +32,8 @@ main.table{
     background-color: #fff4;
     padding: .8rem 1rem;
     display: flex;
-    justify-content: center; /* horizontal */
-    align-items: center;     /* vertical */
+  justify-content: center; /* horizontal */
+  align-items: center;     /* vertical */
 }
 .table_body{
     width: 95%;
@@ -48,15 +48,21 @@ main.table{
 table{
     width: 100%;
 }
-.table_body::-webkit-scrollbar{
+
+.table_body::-webkit-scrollbar,
+.button_table::-webkit-scrollbar{
     width: 0.5rem;
     height: 0.5rem;
 }
+
+.button_table::-webkit-scrollbar-thumb,
 .table_body::-webkit-scrollbar-thumb{
     border-radius: .5rem;
     background-color: #0004;
     visibility: hidden;
 }
+
+.button_table:hover::-webkit-scrollbar-thumb,
 .table_body:hover::-webkit-scrollbar-thumb{
     visibility: visible;
 }
@@ -80,12 +86,45 @@ thead th{
 
     background-color: #c4c4c4;
 }
+
+.grid_buttons{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px;
+    padding: 10px;
+    }
+.grid_buttons button{
+    padding: 8px;
+    font-size: 1rem;
+    width: 100%; /* fills the grid cell */
+    box-sizing: border-box;
+    cursor: pointer;
+    
+    font-size: 20px;
+    background-color: lightgray;
+    border-color: gray;
+    color: rgb(70, 69, 69);
+    border-radius: 10px;
+}
+.button_table{
+    width: 95%;
+    height: 110%;
+    max-height: calc(89% - 1.6rem);
+    background-color: rgba(255, 255, 255, 0.3);
+
+    margin: .8rem auto;
+    border-radius: .6rem;
+
+    overflow: auto;
+}
+
 tbody tr:nth-child(even){
     background-color: #0000000b;
 }
 tbody tr:hover{
     background-color: #fff6;
 }
+
 @media(max-width:1000px){
     td:not(:first-of-type){
         min-width: 12.1rem;
