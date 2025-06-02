@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Players</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="table">
+    <section class="table_header">
+        <h1 id="title">Loading Player Ranking...</h1>
+    </section>
+    <section class="table_body">
+        <table>
+            <thead>
+                <tr>
+                    <th> Ranking </th>
+                    <th> User Name </th>
+                    <th> Time </th>
+                    <th> Date </th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard">
+                
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+
+<script>
+  //SCript acces from Index
+  const urlParms = new URLSearchParams(window.location.search);
+  const level = urlParms.get("level");
+  if(level){
+    document.getElementById("title").textContent = "Leader Board: Level "+level;
+  }else{
+    document.getElementById("title").textContent = "No level selected.";
+  }
+    //Formatting the time
+    const formatTime = secs => {
+      const min = Math.floor(secs / 60);
+      const sec = secs % 60;
+      return `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
+    };
+  
+    //fetching the data
+    fetch("https://bns84bl623.execute-api.eu-north-1.amazonaws.com/Deploy/resource_butter")
+    .then(res => res.json())
+    .then(data => {
+      const users = Array.isArray(data.body) ? data.body : JSON.parse(data.body);
+  
+      //Filter Depdening on level
+      const fiteredUsers = level
+      ? users.filter(user => String(user.levelId)=== String(level))
+      : [];
+
+      // Sort users by time (fastest first)
+      fiteredUsers.sort((a, b) => a.time - b.time);
+  
+      const list = document.getElementById("leaderboard");
+  
+      fiteredUsers.forEach((user, index) => {
+        const markup = `
+          <tr>
+            <td> ${index + 1} </td>
+            <td><strong> ${user.user} </strong></td>
+            <td> ${formatTime(user.score)} </td>
+            <td> ${user.date} </td>
+          </tr>`;
+        list.insertAdjacentHTML("beforeend", markup);
+      });
+    });
+    </script>
+  
+</html>
